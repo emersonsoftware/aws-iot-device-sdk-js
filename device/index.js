@@ -441,6 +441,7 @@ function DeviceClient(options) {
 
    var protocols = {};
    protocols.mqtts = require('./lib/tls');
+   protocols.mqtt = require('./lib/tcp')
    protocols.wss = require('./lib/ws');
 
    function _addToSubscriptionCache(topic, options) {
