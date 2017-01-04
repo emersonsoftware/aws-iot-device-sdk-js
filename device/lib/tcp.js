@@ -12,10 +12,10 @@ var tcp = require('net');
 function buildBuilder(mqttClient, opts) {
    var connection;
 
-  if ( !opts.port ) {
-    opts.port = 8883;
-  }
-   connection = tcp.connect(opts)
+   if (!opts.port) {
+      opts.port = 8883;
+   }
+   connection = tcp.connect(opts);
    return connection;
 }
 
