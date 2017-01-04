@@ -63,6 +63,7 @@ function isThingShadowTopic(topicTokens, direction) {
          if (direction === 'subscribe') {
             if (((topicTokens[5] === 'accepted') ||
                   (topicTokens[5] === 'rejected') ||
+                  (topicTokens[5] === 'documents' ) ||
                   (topicTokens[5] === 'delta')) &&
                (topicTokens.length === 6)) {
                rc = true;
@@ -262,6 +263,13 @@ function ThingShadowsClient(deviceOptions, thingShadowOptions) {
          this.emit('delta', thingName, stateObject);
          return;
       }
+
+      // If this is a 'documents' message, emit an event for it and return.
+      if (operationStatus === 'documents') {
+         this.emit('documents', thingName, stateObject);
+         return;
+      }
+
       //
       // only accepted/rejected messages past this point
       // ===============================================
@@ -532,6 +540,7 @@ function ThingShadowsClient(deviceOptions, thingShadowOptions) {
          // property will be added after the first accepted update from AWS IoT.
          //
          var ignoreDeltas = false;
+         var ignoreDocuments = false;
          var topicSpecs = [];
          thingShadows[thingName] = {
             persistentSubscribe: true,
@@ -545,6 +554,9 @@ function ThingShadowsClient(deviceOptions, thingShadowOptions) {
          if (!isUndefined(options)) {
             if (!isUndefined(options.ignoreDeltas)) {
                ignoreDeltas = options.ignoreDeltas;
+            }
+            if (!isUndefined(options.ignoreDocuments)) {
+               ignoreDocuments = options.ignoreDocuments;
             }
             if (!isUndefined(options.persistentSubscribe)) {
                thingShadows[thingName].persistentSubscribe = options.persistentSubscribe;
@@ -569,6 +581,13 @@ function ThingShadowsClient(deviceOptions, thingShadowOptions) {
             topicSpecs.push({
                operations: ['update'],
                statii: ['delta']
+            });
+         }
+
+         if (ignoreDocuments === false ) {
+            topicSpecs.push({
+              operations: ['update'],
+              statii: ['documents']
             });
          }
          //

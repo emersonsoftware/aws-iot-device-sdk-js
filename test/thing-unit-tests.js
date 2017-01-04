@@ -1484,8 +1484,10 @@ describe( "thing shadow class unit tests", function() {
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 0);
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 0);
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 0);
+          assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 0);
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), undefined);
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow1/shadow/update/delta');
+          assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow1/shadow/update/documents');
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow1/shadow/update/accepted');
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow1/shadow/update/rejected');
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow1/shadow/get/accepted');
@@ -1523,8 +1525,10 @@ describe( "thing shadow class unit tests", function() {
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 1);
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 1);
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 1);
+          assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), 1);
           assert.equal( mockMQTTClientObject.subscribeQosValues.shift(), undefined);
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow2/shadow/update/delta');
+          assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow2/shadow/update/documents');
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow2/shadow/update/accepted');
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow2/shadow/update/rejected');
           assert.equal( mockMQTTClientObject.subscriptions.shift(), '$aws/things/testShadow2/shadow/get/accepted');
